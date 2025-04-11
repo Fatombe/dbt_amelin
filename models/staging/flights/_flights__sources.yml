@@ -40,3 +40,21 @@ sources:
             description: Номер места
           - name: fare_conditions
             description: Класс обслуживания
+      - name: bookings
+        description: Места в самолетах
+        columns:
+          - name: book_ref
+            description: Код Бронирования
+          - name: book_date
+            description: Дата бронирования
+          - name: total_amount
+            description: Стоимость
+        freshness:
+          warn_after:
+            count: 6
+            period: hour
+          error_after:
+            count: 10000
+            period: day
+          filter: current_timestamp::date - book_date::date < 30000
+        loaded_at_field: book_date::timestamp
