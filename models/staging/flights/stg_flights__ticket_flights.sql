@@ -5,7 +5,8 @@
 }}
 
 select 
-    aircraft_code, 
-    seat_no, 
-    fare_conditions
-from {{ source("demo_src", "seats") }}
+    ticket_no, 
+    flight_id, 
+    fare_conditions, 
+    amount
+from {{ source("demo_src", "ticket_flights") }}
