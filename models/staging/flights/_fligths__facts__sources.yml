@@ -9,6 +9,9 @@ sources:
         columns:
           - name: aircraft_code
             description: Код модели самолета
+            data_tests:
+              - unique
+              - not_null
           - name: model
             description: Название модели самолета
           - name: range
@@ -18,10 +21,10 @@ sources:
           Аэропорты.
           Аэродромы.
         columns:
-          - name: aircraft_code
+          - name: airport_code
             description: Код модели самолета
-            tests:
-              - not null
+            data_tests:
+              - not_null
               - unique
           - name: airport_name
             description: Название аэропорта
@@ -41,7 +44,7 @@ sources:
           - name: fare_conditions
             description: Класс обслуживания
       - name: bookings
-        description: Места в самолетах
+        description: Бронирование
         columns:
           - name: book_ref
             description: Код Бронирования
@@ -54,7 +57,32 @@ sources:
             count: 6
             period: hour
           error_after:
+            count: 1
+            period: day
+          filter: current_timestamp::date - book_date::date < 3
+        loaded_at_field: book_date::timestamp
+      - name: boarding_passes
+        description: Посадочные талоны
+        columns:
+          - name: ticket_no
+            description: Номер талона
+          - name: flight_id
+            description: Код рейса
+          - name: boarding_no
+            description: ???
+          - name: seat_no
+            description: Номер места
+      - name: flights
+        description: Полеты
+        freshness:
+          warn_after:
+            count: 60000000
+            period: hour
+          error_after:
             count: 10000
             period: day
-          filter: current_timestamp::date - book_date::date < 30000
-        loaded_at_field: book_date::timestamp
+        loaded_at_field: actual_departure::timestamp
+      - name: ticket_flights
+        description: Таблица связей билетов и полетов
+      - name: tickets
+        description: Билеты
