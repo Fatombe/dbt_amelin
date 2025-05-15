@@ -17,3 +17,7 @@ clean-targets:
 models:
   dbt_course:
     +materialized: view
+
+seeds:
+  dbt_course:
+    schema: seeds
