@@ -1,6 +1,7 @@
 {{
   config(
-    materialized = 'table'
+    materialized = 'table',
+    meta = { "owner": "sql_file@yahoo.com"}
     )
 }}
 

@@ -10,9 +10,9 @@ models:
     config:
       contract: 
         enforced: true
-    meta:
-      owner: AlexBe
-      email: belrev@yahoo.com
+      meta:
+        owner: yml_file@yahoo.com
+        status: in dev
     columns:
       - name: book_ref
         data_type: varchar(8)

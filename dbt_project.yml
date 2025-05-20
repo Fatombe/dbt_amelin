@@ -17,6 +17,13 @@ clean-targets:
 models:
   dbt_course:
     +materialized: view
+    +meta: 
+      owner: "dbt_project_yml@yahoo.com"
+      year_owner: 2025
+    staging:
+      tags: staging
+    intermediate:
+      tags: intermediate
 
 seeds:
   dbt_course:
