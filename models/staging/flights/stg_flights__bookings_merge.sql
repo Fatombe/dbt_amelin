@@ -17,3 +17,5 @@ from {{ source("demo_src", "bookings") }}
 {% if is_incremental() %}
 where book_ref > ((SELECT MAX(book_date) FROM {{ source('demo_src', 'bookings') }}) - interval '97 day')
 {% endif %}
+
+{# comments #}
