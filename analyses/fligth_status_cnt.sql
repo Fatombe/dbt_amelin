@@ -13,6 +13,6 @@
 
 SELECT 
     {%- for i in unique_status %}
-    SUM(CASE WHEN status = '{{i}}' THEN 1 ELSE 0 END) as "status_{{i}}"{% if not loop.last%},{% endif %}
+    SUM(CASE WHEN status = '{{i}}' THEN 1 ELSE 0 END) as status_{{i|replace(' ', '')}}{% if not loop.last%},{% endif %}
     {%- endfor %}
 FROM {{ ref('stg_flights__flights') }}
