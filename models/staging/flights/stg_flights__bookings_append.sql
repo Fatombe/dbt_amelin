@@ -7,10 +7,10 @@
 }}
 
 select 
-    book_ref, 
+    {{ bookref_to_bigint("book_ref") }} as book_ref, 
     book_date, 
-    total_amount
+    {{kop_to_ruble(column_name="total_amount")}} as total_amount
 from {{ source("demo_src", "bookings") }}
-{% if is_incremental() %}
-where ('0x' || book_ref)::bigint > (select MAX(('0x' || book_ref)::bigint) from {{this}})
-{% endif %}
+{%- if is_incremental() %}
+where book_ref > (select MAX(book_ref) from {{this}})
+{% endif %} 
