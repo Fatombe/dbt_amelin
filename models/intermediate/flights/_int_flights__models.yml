@@ -43,19 +43,31 @@ models:
       - name: ticket_no
         description: Номер билета
         data_type: bpchar(13)
+        data_tests: 
+          - not_null
+          - unique
         constraints:
           - type: not_null
       - name: flight_id
         description: Код рейса
         data_type: int4
+        data_tests: 
+          - not_null
+          - unique
         constraints:
           - type: not_null
       - name: fare_conditions
         description: Уровень обслуживания
         data_type: varchar(10)
+        data_tests: 
+          - not_null
+          - unique
       - name: amount
         description: Счет
         data_type: numeric(10, 2)
+        data_tests: 
+          - not_null
+          - unique
         constraints:
           - type: check
             expression: amount > 0
@@ -63,3 +75,8 @@ models:
     data_tests:
       - dbt_utils.equal_rowcount:
           compare_model: ref('stg_flights__flights')
+    columns:
+      - name: flight_id
+        description: Код рейса
+        data_tests: 
+          - not_null
