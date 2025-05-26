@@ -5,7 +5,8 @@
     )
 }}
 
-select
-      {{show_columns_relation("stg_flights__bookings")}}
+select book_ref, 
+      book_date, 
+      total_amount
 from {{ ref('stg_flights__bookings') }}
-{{ limit_data_dev('book_date', 3000) }}
+{{ limit_data_dev('book_date') }} 

@@ -1,5 +1,3 @@
-
-
 select scheduled_departure::date as scheduled_departure,
 count(*) as cancelled_flights
 from {{ ref('fct_flights') }}

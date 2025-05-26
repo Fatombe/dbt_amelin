@@ -59,4 +59,3 @@ models:
         constraints:
           - type: check
             expression: amount > 0
-  - name: stg_flights__flights

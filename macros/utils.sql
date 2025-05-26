@@ -1,6 +1,6 @@
-{%- macro concat_columns(columns, delimeter=',') %}
+{%- macro concat_columns(columns, delimeter=', ') %}
     {%- for column in columns -%}
-        {{column}} {% if not loop.last %} || "{{delimeter}}" || {% endif%}
+        {{column}} {% if not loop.last %} || '{{delimeter}}' || {% endif%}
     {%- endfor %}
 {%- endmacro -%}
 

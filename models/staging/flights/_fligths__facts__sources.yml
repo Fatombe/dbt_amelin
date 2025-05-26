@@ -1,7 +1,7 @@
 sources:
   - name: demo_src
     description: Данные по авиаперелетам
-    database: dwh-flight
+    database: dwh_flight
     schema: demo_src
     tables:
       - name: aircrafts
