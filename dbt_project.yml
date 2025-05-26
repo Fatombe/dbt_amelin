@@ -12,7 +12,8 @@ clean-targets:
   - "target"
   - "dbt_packages"
 
-
+vars:
+  surrogate_key_treat_nulls_as_empty_strings: true
 
 models:
   +post_hook: |

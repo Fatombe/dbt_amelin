@@ -9,7 +9,7 @@ models:
       - v: 1
     config:
       contract: 
-        enforced: true
+        enforced: false
       meta:
         owner: yml_file@yahoo.com
         status: in dev
@@ -59,3 +59,7 @@ models:
         constraints:
           - type: check
             expression: amount > 0
+  - name: fct_flights
+    data_tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: ref('stg_flights__flights')

@@ -26,6 +26,7 @@ sources:
             data_tests:
               - not_null
               - unique
+              - dbt_utils.not_empty_string
           - name: airport_name
             description: Название аэропорта
           - name: city
