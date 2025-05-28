@@ -1,4 +1,4 @@
-{% snapshot dim_flights__airoports %}
+{% snapshot dim_airports %}
 
 {{
    config(

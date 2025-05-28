@@ -55,10 +55,10 @@ sources:
             description: Стоимость
         freshness:
           warn_after:
-            count: 6
+            count: 600000
             period: hour
           error_after:
-            count: 1
+            count: 100000
             period: day
           filter: current_timestamp::date - book_date::date < 3
         loaded_at_field: book_date::timestamp
