@@ -1,0 +1,21 @@
+unit_tests:
+  - name: test_fact_departure_actual_duration_flight
+    description: Фактическое время полета
+    model: fct_flights
+    given:
+      - input: ref('stg_flights__flights')
+        rows:
+          - {actual_departure : 2017-06-05 12:25:00.000 +0300, actual_arrival : 2017-06-05 12:27:00.000 +0300}
+    expect:
+      rows:
+        - {actual_departure : 2017-06-05 12:25:00.000 +0300, actual_arrival : 2017-06-05 12:27:00.000 +0300, actual_duration_flight: 0:02:00}
+  - name: test_fact_departure_actual_duration_flight_null
+    description: Фактическое время полета при отсутствии информации о вылете или прилете
+    model: fct_flights
+    given:
+      - input: ref('stg_flights__flights')
+        rows:
+          - {actual_departure : 2017-06-05 12:25:00.000 +0300, actual_arrival : NULL}
+    expect:
+      rows:
+        - {actual_departure : 2017-06-05 12:25:00.000 +0300, actual_arrival : NULL, actual_duration_flight: 0:00:00}

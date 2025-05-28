@@ -1,0 +1,49 @@
+unit_tests:
+  - name: test_append
+    description: " Во время обновления должна подгрузиться 1 новая строка с бОльшим scheduled_departure"
+    model: stg_flights__flights
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: source('demo_src', 'flights')
+        rows:
+          - {flight_id: 100, scheduled_departure: 2018-06-05 12:25:00.000 +0300}
+      - input: this
+        rows:
+          - {flight_id: 7, scheduled_departure: 2017-06-05 12:25:00.000 +0300}
+    expect:
+      rows:
+        - {flight_id: 100, scheduled_departure: 2018-06-05 12:25:00.000 +0300}
+  - name: test_not_append
+    description: " "
+    model: stg_flights__flights
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: source('demo_src', 'flights')
+        rows:
+          - {flight_id: 7, scheduled_departure: 2016-06-05 12:25:00.000 +0300}
+      - input: this
+        rows:
+          - {flight_id: 100, scheduled_departure: 2017-06-05 12:25:00.000 +0300}
+    expect:
+      rows:
+        - {flight_id: 7, scheduled_departure: 2016-06-05 12:25:00.000 +0300}      
+  - name: test_merge
+    description: " "
+    model: stg_flights__flights
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: source('demo_src', 'flights')
+        rows:
+          - {flight_id: 800, scheduled_departure: 2025-02-01 12:25:00.000 +0300, status: Arrived}
+      - input: this
+        rows:
+          - {flight_id: 800, scheduled_departure: 2025-01-01 12:25:00.000 +0300, status: Scheduled}
+    expect:
+      rows:
+        - {flight_id: 800, scheduled_departure: 2025-02-01 12:25:00.000 +0300, status: Arrived}         
