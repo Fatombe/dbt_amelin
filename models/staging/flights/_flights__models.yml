@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: stg_flights__seats
+    data_tests:
+    - dbt_utils.unique_combination_of_columns:
+        combination_of_columns:
+          - aircraft_code
+          - seat_no
+    columns:
+      - name: aircraft_code
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_flights__aircraft')
+              field: aircraft_code
+      - name: seat_no
+        data_tests:
+          - not_null
+          - seat_no_pattern:
+              config:
+                severity: warn
+      - name: fare_conditions
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['Business', 'Comfort', 'Economy']
+  - name: stg_flights__airports
+    columns:
+      - name: airport_code
+        data_tests: 
+          - not_null
+          - unique
+          - airport_code_name:
+              config:
+                severity: warn
